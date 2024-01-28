@@ -27,3 +27,9 @@ def query(vec,limit,candidates):
       }
     ]
     return articles.aggregate(prep)
+
+#use this to move articles from one collection to another based on date range, in uxix format
+def migrate(col_from,col_to,dates):
+    table = col_from.find({'date':{'$gt': dates[0], '$lt': dates[1]}})
+    col_to.insert_many(list(table))
+    col_from.delete_many({'date':{'$gt': dates[0], '$lt': dates[1]}})
