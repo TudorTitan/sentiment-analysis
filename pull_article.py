@@ -2,6 +2,7 @@ import requests
 from sentiment_analyis.pymongo_get_database import get_database
 from sentiment_analyis.embed import get_embedding
 from datetime import datetime
+#All news article scraping and maintainance goes here
 
 Vectors = get_database()
 articles = Vectors["table"]
