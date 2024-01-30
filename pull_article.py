@@ -15,6 +15,15 @@ def unix_to_time(unix_date):
 def time_to_unix(date):
     return datetime(int(date[0:4]), int(date[4:6]), int(date[6:8]), int(date[9:11]), int(date[11:13])).timestamp()
 
+#add one article to curated table for asset
+def add_article(asset,url,text,date,label = None):
+    table = Vectors['Curated:'+asset]
+    #no duplicates in url
+    if list(articles.find({'link': url })) == []:
+        table.insert_one.append({'link': url,
+                     'date': time_to_unix(date),
+                     'vector': get_embedding(text),'label' : label})
+
 #pull article headlines about asset from alpha-vantage, limited to date range in format YYYYMMDDTHHMM
 #embed article summary with openAI embeddings
 #append result to MongoDB 'articles' database, with no duplicates in article url
