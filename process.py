@@ -3,6 +3,7 @@ import numpy as np
 from sentiment_analyis.pymongo_get_database import get_database
 from sentiment_analyis.pymongo_db import query,migrate
 from sentiment_analyis.pull_article import time_to_unix
+from sentiment_analyis.embed import get_embedding
 import yfinance as yf
 
 
@@ -31,6 +32,18 @@ def update_classes():
     for item in list(table):
         result = compute_weekly_performance(item['date'])
         articles.update_one({'_id': item['_id']},{'$set': { 'class': result  } })
+
+def predict(article, k, candidates):
+    # total measure of articles published when asset moves at least 1% that week
+    positive_articles = articles.count_documents({'class': {'$gt': 0.01}})
+    negative_articles = articles.count_documents({}) - positive_articles
+    weight_neg = negative_articles / (negative_articles + positive_articles)
+    weight_pos = positive_articles / (negative_articles + positive_articles)
+    neighbours = query(get_embedding(article), k, candidates)
+    good_neighbours = sum([1 for a in list(neighbours) if a['class'] > 0.01])
+    # we need to weight the sample accoridng to total articles
+    probability = (good_neighbours / weight_pos) / (good_neighbours / weight_pos + (k - good_neighbours) / weight_neg)
+    return probability
 
 #check performance of articles by using validation_articles
 #k nearest neighbours, candidates is typically 20*k
