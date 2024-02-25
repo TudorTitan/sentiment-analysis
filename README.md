@@ -6,11 +6,12 @@
   Set the OpenAI API key I sent you as a permanent environment variable: Go to https://platform.openai.com/docs/quickstart?context=python, Under set up your API key, under set up your API key for all projects (recommended), under Windows, follow step 3 (permanent setup)
 
 3. **How to add articles**
-  Add article to a file called "article.txt", same folder as project. Then call add_article(asset,url,text,date,label = None, source = None): from pull_article.py
+  Add article to a file called "article.txt", same folder as project. Then call add_article(asset,url,text,date,label = None, source = None) from pull_article.py
   *asset* is the ticker symbol, I.E. 'BTC'
   *url* is the url of article
   *text* should be set to the variable text, which is reading article.txt
   *date* is the date published in the format YYYYMMDDTHHMM for example right now it is 20240225T1159
   *label* is 'up' or 'down' or whatever labelling we want to use
 4. **How to do vector search**
-   Use query(vec,limit,candidates) from pymongo_db.py. This does knn search with k = limit and vec is the query vector. Candidates is just a number, typically 20*limit, used in the vector search.   
+   Use query(vec,limit,candidates) from pymongo_db.py. This does knn search with k = limit and vec is the query vector. Candidates is just a number, typically 20*limit, used in the vector search.
+   You can use get_embedding(text, model="text-embedding-ada-002") from embed.py to turn text into a vector, but this comes at a resource cost.
