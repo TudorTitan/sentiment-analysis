@@ -1,11 +1,4 @@
-# sentiment-analysis
---TODO List
-
-1. Can make a scraper that goes through the urls of articles in db and pulls the article text from the site
-2. Allow for more asset classes
-3. A better sample would be 3 years, 50 articles per month (- 1800 articles) across at least 3 asset classes, validating the last 6 months.
-
-Note on costs: 3p for embedding 7000 headlines, so estimate that 1$ cost can cover 5000 full articles
-
-Ideas:
-1. Search a few key phrases such as ['Bitcoin is going up', 'Bitcoin is going to crash', 'Fear of missing out' , 'SEC approves'] and learn how search scores of article correlate with price movement
+1. **Connect to MongoDB database**
+  Use the password I sent you, and the email "teodor.ciurca@gmail.com" to log into MongoDB and "add current IP address". Then click "connect" to connect to database. I think you only need to do this once, but if you ever fail to connect to the database, repeat this step.
+2. **Add API keys**
+  
