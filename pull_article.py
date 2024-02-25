@@ -14,6 +14,9 @@ def unix_to_time(unix_date):
 def time_to_unix(date):
     return datetime(int(date[0:4]), int(date[4:6]), int(date[6:8]), int(date[9:11]), int(date[11:13])).timestamp()
 
+f = open("article.txt", encoding='utf8')
+text = " ".join(f.read().split())
+
 #add one article to curated table for asset
 def add_article(asset,url,text,date,label = None, source = None):
     table = Vectors['Assets']
