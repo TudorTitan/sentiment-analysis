@@ -12,6 +12,5 @@
   *text* should be set to the variable text, which is reading article.txt
   *date* is the date published in the format YYYYMMDDTHHMM for example right now it is 20240225T1159
   *label* is 'up' or 'down' or whatever labelling we want to use
-   
-4.**How to do vector search**
-   Use query() from pymongo_db.py  
+4. **How to do vector search**
+   Use query(vec,limit,candidates) from pymongo_db.py. This does knn search with k = limit and vec is the query vector. Candidates is just a number, typically 20*limit, used in the vector search.   
