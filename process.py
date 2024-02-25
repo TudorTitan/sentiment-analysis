@@ -13,13 +13,12 @@ Vectors = get_database()
 def days_ago(timestamp):
     return int((time.time() - timestamp)/(60*60*24))
 
-#use yahoo finance api to get daily BTC opening price
-BTC_Ticker = yf.Ticker("BTC-USD")
-BTC_Data = BTC_Ticker.history(period="max")
-data = [list(BTC_Data.iloc[i][0:5]) for i in range(len(BTC_Data))]
-
-#Compute the mean change in price for the next week, as a ratio of current price
+#Compute the mean change in price for the next week, as a ratio of current price, currently only works for BTC
 def compute_weekly_performance(unix_date):
+    #use yahoo finance api to get daily BTC opening price
+    BTC_Ticker = yf.Ticker("BTC-USD")
+    BTC_Data = BTC_Ticker.history(period="max")
+    data = [list(BTC_Data.iloc[i][0:5]) for i in range(len(BTC_Data))]
     daysAgo = days_ago(unix_date)
     prices = [i[0] for i in data[-daysAgo - 1: -daysAgo + 6]]
     return (np.mean(prices) - prices[0])/prices[0]
